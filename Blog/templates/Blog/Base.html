@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Blog</title>
+    
+    <!-- Bootstrap --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+	<div>
+		<nav class="navbar">
+			<div class="container">
+				<a href="{% url 'Posts:ShowPosts' %}">Blog</a>
+				<div>
+					<ul class="navbar-nav ml-auto">
+						{% if user.is_authenticated  %}
+						<li class="list-group-item">
+							<a href="{% url 'logout' %}">Logout</a>
+						</li>
+						{% else %}
+						<li class="list-group-item">
+							<a href="{% url 'login' %}">Login</a>
+						</li>
+						<li class="list-group-item">
+							<a href="{% url 'signup' %}">Sign in</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<br>
+		<div class="container">
+			<div class="row"> <!--Container napravi slicno redu  ,row kako i ime govori napravi red, col-lg-4 podjeli napravljeni red na 4 djela(row je 12), list group zajedno sa list group itemom narpavi ljepsi prikaz liste -->
+				<div class="col-lg-4">
+					<ul class="list-group">
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:CreatePost' %}">Create a post</a>
+						</li>
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:ShowCategories' %}">Show categories</a>
+						</li>
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:CreateCategory' %}">Create a category</a>
+						</li>
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:ShowTags' %}">Show tags</a>
+						</li>
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:CreateTag' %}">Create tag</a>
+						</li>
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:SiteSettings' '1' %}">Settings</a> <!-- hardcodiran je 1 ovdje da uvijek mjenja prvi entry za settings, zbog tega ce nam trebat seeder koji se pokrece pri svakom novom resetiranju baze -->
+						</li>
+						{% if user.is_authenticated  %} <!--ako user b+nije logiran nemoj prikazat-->
+						<li class="list-group-item"> 
+							<a href="{% url 'Posts:UserPage' %}">List of users</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+				<div class="col-lg-8">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Scripts -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+

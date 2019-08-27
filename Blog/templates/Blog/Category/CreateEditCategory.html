@@ -1,0 +1,35 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			{% if object %} <!-- provjerava dali postoji objekt, ako ne onda znaci da tek radim novi obj, ak postoji znaci da editiramo postojeci-->
+				<h1>Update your category</h1>
+			{% else%}
+				<h1>Create a new category</h1>
+			{%endif%}
+			<hr>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div>
+				<form method="POST"><!-- kad koristim class viewove netrebam action jer sam sve rjesi-->
+					{% csrf_token %} <!-- zastita od cross site request forgeringa-->
+					<div class="form-group">
+						{{ form.as_p }}
+					</div>
+					{% if object %}
+						<input class="btn btn-primary" type="submit" value="Update">
+					{% else%}
+						<input class="btn btn-primary" type="submit" value="Submit">
+					{%endif%}
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

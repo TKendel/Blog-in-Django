@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ Title }}</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styling.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/frontEnd.css"> 
+    <!--Font-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet"> 
+
+</head>
+
+<body>
+	<header>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<nav class="navbar sticky-top navbar-light">
+						<a class="navbar-brand" href="{% url 'Posts:Welcome' %}"><h2>{{ Settings.siteName }}</h2></a>
+						<form class="form-inline" method="GET" action="{% url 'Posts:Search' %}">
+							<input class="form-control mr-sm-2" type="text" name="Querry" placeholder="Search" arial-label="Search">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						</form>  
+						<div id="NavbarLogin">
+							<ul class="nav navbar-right">
+								{% if user.is_authenticated  %}
+								<p style="padding-top: 8px;">Welcome back <a href="{% url 'Posts:ProfileSettings' user.id %}" style="text-transform: capitalize;">{{user.username}}</a></p>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+								</li>
+								<div>
+									<div class="dropdown">
+					                	<button onclick="myFunction()" class="dropbtn btn btn-link Select">
+					                		<div class="icon"></div>
+					                		<div class="icon"></div>
+					                		<div class="icon"></div>
+					                	</button>
+					                	<div id="myDropdown" class="dropdown-content">
+					                    	<a href="{% url 'Posts:CreatePost'%}">Create a post</a>
+											<a href="{% url 'Posts:CreateCategory'%}">Create a category</a>
+											<a href="{% url 'Posts:CreateTag'%}">Create a tag</a>
+											<a href="{% url 'Posts:ShowCategories'%}">Show all categories</a>
+											<a href="{% url 'Posts:ShowTags'%}">Show all tags</a>
+											{% if user.is_staff %}
+												<a href="{% url 'Posts:UserPage' %}">Users</a>
+												<a href="{% url 'Posts:SiteSettings' pk=1 %}">Settings</a>
+											{% endif %}
+					                	</div>
+					                </div>
+								</div>
+								{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'login' %}">Log In</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	{% block content %}
+	{% endblock %}
+
+
+<!--scripts-->
+{% load staticfiles %}
+<script src="{% static 'js/dropdown.js' %}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</body>
+</html>

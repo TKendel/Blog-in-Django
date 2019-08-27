@@ -1,0 +1,16 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>New Comment</h1>
+				<form method="POST" class="post-form">
+				{% csrf_token %}
+					{{form.as_p}}
+					<input class="btn btn-primary" type="submit" value="Create">
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,180 @@
+/* BOOTSTRAP grid */
+
+/*.row{
+	background-color: #562227;
+}
+.col-3{
+	background-color: blue;
+}
+.container{
+	background-color: #0e440f;
+}
+.col-md-4{
+	background-color: pink;
+}
+.col-md-8{
+	background-color: #342e8c;
+}
+
+
+/* Applying font */
+p{
+  font-family: 'Merriweather', serif;
+}
+h4{
+  font-family: 'Merriweather', serif;
+}
+a{
+  font-family: 'Merriweather', serif;
+}
+h1{
+  font-family: 'Merriweather', serif;
+}
+h3{
+  font-family: 'Merriweather', serif;
+}
+
+
+
+/* Hover Dropdown */
+.dropbtn {
+  font-size: 15px;
+  text-align: center;
+}
+.dropbtn:hover{
+  background-color: gray;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 220px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.icon{
+  width: 25px;
+  height: 2px;
+  background-color: black;
+  margin: 6px 0;
+}
+
+/* Uredivanje opcenito Postova */
+a.Link{
+  color: #292929;
+  font-weight: 100000;
+}
+a.Link:hover{
+  text-decoration: none;
+  color: #292929;
+}
+
+#Title{
+  text-transform: capitalize;
+}
+
+.Capitalize{
+  text-transform: capitalize;
+}
+
+.Grayout{
+  color: #75758e;
+  font-size: small;
+}
+
+.Title{
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.Border{
+  border-color: #03a87c;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.Spacing{
+  margin-bottom: 50px;
+}
+
+.Description{
+  font-size: 22px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+}
+
+/*Centriranje slika*/
+.Image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/*Navbar stvari*/
+.navbar .navbar-nav{
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.CategoryNav{
+  text-transform: uppercase;
+  margin-right: 25px;
+}
+
+.Tags{
+  background-color: #f2f2f2;
+  border-radius: 8%;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+/*informacije o postu*/
+.PostInfo{
+  font-size: small;
+}
+
+/* Signup slika na welcome stranici*/
+.SignUpPicture{
+  background: url('/static/images/Qnf0Xaf.jpg');
+  height: 280px;
+}
+
+/*Footer*/
+footer{
+  background-color: #191919;
+  color: white;
+}
+footer.a{
+  color:white;
+}
+

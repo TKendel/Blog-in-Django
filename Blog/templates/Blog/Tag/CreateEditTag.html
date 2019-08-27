@@ -1,0 +1,35 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			{% if object %} 
+				<h1>Update your tag</h1>
+			{% else%}
+				<h1>Create a new tag</h1>
+			{%endif%}
+			<hr>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div>
+				<form method="POST">
+					{% csrf_token %} 
+					<div class="form-group">
+						{{ form.as_p }}
+					</div>
+					{% if object %}
+						<input class="btn btn-primary" type="submit" value="Update">
+					{% else%}
+						<input class="btn btn-primary" type="submit" value="Submit">
+					{%endif%}
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

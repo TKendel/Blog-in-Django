@@ -1,0 +1,28 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1>Delete your Post</h1>
+			<hr>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div>
+				<form method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						<p>Are you sure you want to delete "{{ object.title }}"</p>
+					</div>
+					<input class="btn btn-danger" type="submit" value="Confirm">
+					<input class="btn btn-primary" name="Cancel" type="submit" value="Cancel">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

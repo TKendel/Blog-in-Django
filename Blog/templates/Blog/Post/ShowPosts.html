@@ -1,0 +1,58 @@
+{% extends "Blog/Base.html" %}
+
+{% block content %}
+<h2>Posts</h2>
+<table class="table">
+	{% if allPosts.count > 0 %}
+	<thead>
+		<tr>
+			<th>
+				Posts
+			</th>
+			<th>
+				Edit
+			</th>
+			<th>
+				Delete
+			</th>
+		</tr>
+	</thead>
+	{% else %}
+	<thead>
+		<tr>
+			<th>
+				Posts
+			</th>
+		</tr>
+	</thead>
+	{% endif %}
+	<tbody>
+		{% if allPosts.count > 0 %} <!--zbog nekog razloga ne radi sa count() nego ovako-->
+			{% for Post in allPosts %}
+			<tr>
+				<td>
+					<h3>{{ Post.title }}</h3>
+					<p>{{ Post.description|safe }}</p>
+					<img src="{{ Post.thumbnail.url }}" width="150" height="150">
+				</td>
+				<td>
+					<a href="{% url 'Posts:UpdatePost' Post.id %}"><button style="margin-left: 5px;">Edit</button></a>
+				</td>
+				<td>
+					<a href="{% url 'Posts:DeletePost' Post.id %}"><button style="margin-left: 5px;">Delete</button></a>
+				</td>
+			</tr>
+			{% endfor %}
+		{% else %}
+			<tr>
+				<td>
+					No posts as off now!
+				</td>
+			</tr>
+		{% endif %}
+
+	</tbody>
+</table>
+
+
+{% endblock %}

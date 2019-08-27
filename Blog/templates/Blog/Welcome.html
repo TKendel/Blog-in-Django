@@ -1,0 +1,223 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+	<div class="container">
+		<nav class="navbar navbar-light center">
+			<div class="navbar-collapse">
+				<ul class="nav navbar-nav">
+					{% for category in Categories %}
+					<li class="nav-item navbar-nav">
+						<a class="nav-link CategoryNav" style="color:black;" href="{% url 'Posts:CategoryPage' category.id %}">{{category.name}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<div class="container">
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-lg-4 col-md-6">
+				<div>
+					{% if not latestPost.thumbnail %}
+
+					{% else %}
+						<a href="{% url 'Posts:Single' latestPost.id %}"><img src="{{ latestPost.thumbnail.url }}" width="340" height="150"></a>
+					{% endif %}
+				</div>
+				<div class = "Capitalize">
+					<a class="Link" href="{% url 'Posts:Single' latestPost.id %}"><h4 style="margin-top: 10px;" class="Title">{{ latestPost.title }}</h4></a>
+				</div>
+				 <div class="Grayout Capitalize">
+					<p>{{ latestPost.description|safe|truncatechars_html:50 }}</p>
+				</div> 
+				<div class="PostInfo">
+					<p class="Capitalize" style="margin: 0px;">Posted by <strong class="Capitalize" >{{ latestPost.user.username }}</strong></p>
+					{% load humanize %}
+					<p class="Grayout" style="margin: 0px;">{{ latestPost.created_at|naturaltime }}</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				{% for Post in allPosts %}
+					{% if Post.id != latestPost.id and Post.id != SecondLatestPost.id %}
+					<div class="row" style="margin-bottom: 20px;">
+						<div class="col-md-4">
+							<div>
+								{% if not latestPost.thumbnail %}
+					
+								{% else %}
+								<a href="{% url 'Posts:Single' Post.id %}"><img src="{{ Post.thumbnail.url }}" width="100" height="100"></a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class = "Capitalize">
+								<a class="Link" href="{% url 'Posts:Single' Post.id %}"><h4 class="Title" style="margin-bottom: 1px;">{{ Post.title }}</h4></a>
+							</div>
+							<div class="Grayout Capitalize">
+								<p style="margin-bottom:5px;">{{ Post.description|safe|truncatechars_html:25}}</p>
+							</div>
+							<div class="PostInfo">
+								<p class="Capitalize" style="margin: 0px;">Posted by <strong class="Capitalize">{{ Post.user.username }}</strong></p>
+								{% load humanize %}
+								<p class="Grayout" style="margin: 0px;">{{ Post.created_at|naturaltime }}</p>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div class="col-lg-4 d-none d-lg-block">
+				<div>
+					{% if not SecondLatestPost.thumbnail %}
+
+					{% else %}
+						<a href="{% url 'Posts:Single' SecondLatestPost.id %}"><img src="{{ SecondLatestPost.thumbnail.url }}" width="340" height="150"></a>
+					{% endif %}
+				</div>
+				<div class = "Capitalize">
+					<a class="Link" href="{% url 'Posts:Single' latestPost.id %}"><h4 style="margin-top: 10px;" class="Title">{{ SecondLatestPost.title }}</h4></a>
+				</div>
+				 <div class="Grayout Capitalize">
+					<p>{{ SecondLatestPost.description|safe|truncatechars_html:50 }}</p>
+				</div> 
+				<div class="PostInfo">
+					<p class="Capitalize" style="margin: 0px;">Posted by <strong class="Capitalize">{{ SecondLatestPost.user.username }}</strong></p>
+					{% load humanize %}
+					<p class="Grayout" style="margin: 0px;">{{ SecondLatestPost.created_at|naturaltime }}</p>
+				</div>
+			</div>
+		</div>		
+		
+		<hr>
+	</div>
+	{% if not user.is_authenticated %}
+	<div class="container SignUpPicture" style="margin-bottom: 55px">
+		<div class="row">
+			<div class="col-lg-4 col-md-4"></div>
+			<div class="col-lg-8 col-md-8" style="color: white; margin-top: 25px;">
+				<h1>Stay at the front of the internet!</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4"></div>
+			<div class="col">
+				<p style="color: white;">Sing up and find articles better suited for you!</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4">
+			</div>
+			<div class="col-lg-8 col-md-8" style="margin-top: 25px;">
+				<form class="form-inline" method="POST" action="{% url 'signup' %}">
+					{% csrf_token %}
+					<input class="form-control mr-sm-2" type="text" name="WelcomeUsername" placeholder="Username" arial-label="Search">
+					<button class="btn btn-success Button2" type="submit">Sign up</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				{% if StylingCategoryID is not None %}
+					<h4><a class="Link" href="">{{ StylingCategoryID.name }}</a></h4>
+					<hr>
+					{% for Post in StylingCategory %}
+						<div class="row" style="margin-bottom: 25px;">
+							<div class="col-lg-8 col-md-8">
+								<div class = "Capitalize">
+									<a class="Link" href="{% url 'Posts:Single' Post.id %}"><h4 class="Title" style="margin-bottom: 2px;">{{ Post.title }}</h4></a>
+								</div>
+								<div class="Grayout Capitalize">
+									<p style="margin-bottom:5px;">{{ Post.description|safe|truncatechars_html:25 }}</p>
+								</div>
+								<div class="PostInfo">
+									<p class="Capitalize" style="margin: 0px;">Posted by <strong class="Capitalize">{{ Post.user.username }}</strong></p>
+									{% load humanize %}
+									<p class="Grayout" style="margin: 0px;">{{ Post.created_at|naturaltime }}</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								{% if not latestPost.thumbnail %}
+						
+								{% else %}
+								<a href="{% url 'Posts:Single' Post.id %}"><img src="{{ Post.thumbnail.url }}" align="right" width="140" height="120"></a>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+
+				{% endif %}
+			</div>
+<!-- Settings -->
+			<!-- <div class="col-lg-4 col-md-4" style="margin-top: 45px;">
+				<div class="row">
+					<div class="col Border">
+						<ul style="text-align: center;" class="list-group list-group-flush">
+							<li style="display: inline-block;" class="list-group-item">
+								<div class="dropdown">
+				                	<button onclick="myFunction()" class="dropbtn btn btn-link Select">Menu
+				                	</button>
+				                	<div id="myDropdown" class="dropdown-content">
+				                    	<a href="{% url 'Posts:CreatePost'%}">Create a post</a>
+										<a href="{% url 'Posts:CreateCategory'%}">Create a category</a>
+										<a href="{% url 'Posts:CreateTag'%}">Create a tag</a>
+										<a href="{% url 'Posts:ShowCategories'%}">Show all categories</a>
+										<a href="{% url 'Posts:ShowTags'%}">Show all tags</a>
+				                	</div>
+				                </div>
+							</li>
+							{% if user.is_staff %}
+							<li class="list-group-item">
+								<a href="{% url 'Posts:UserPage' %}">Users</a>
+							</li>
+							<li class="list-group-item">
+								<a href="{% url 'Posts:SiteSettings' pk=1 %}">Settings</a>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				{% if StylingCategoryID is not None %}
+					<h4><a class="Link" href="">{{ ProgramingCategoryID.name }}</a></h4>
+					<hr>
+					{% for Post in ProgramingCategory %}
+						<div class="row" style="margin-bottom: 25px;">
+							<div class="col-lg-8 col-md-8">
+								<div class = "Capitalize">
+									<a class="Link" href="{% url 'Posts:Single' Post.id %}"><h4 class="Title" style="margin-bottom: 2px;">{{ Post.title }}</h4></a>
+								</div>
+								<div class="Grayout">
+									<p style="margin-bottom:5px;">{{ Post.description|safe|truncatechars_html:25 }}</p>
+								</div>
+								<div class="PostInfo">
+									<p style="margin: 0px;">Posted by <strong class="Capitalize">{{ Post.user.username }}</strong></p>
+									{% load humanize %}
+									<p class="Grayout" style="margin: 0px;">{{ Post.created_at|naturaltime }}</p>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								{% if not latestPost.thumbnail %}
+						
+								{% else %}
+								<a href="{% url 'Posts:Single' Post.id %}"><img src="{{ Post.thumbnail.url }}" align="right" width="140" height="120"></a>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+
+				{% endif %}
+			</div>
+			<div class="col-lg-4 col-md-4"></div>
+		</div>
+	</div>
+{% endblock%}

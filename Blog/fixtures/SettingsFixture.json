@@ -1,0 +1,14 @@
+from .model import Settings
+
+[
+  {
+    "model": "Settings",
+    "pk": 1,
+    "fields": {
+      "siteName": "Test",
+      "contact_number":"0000",
+      "contact_address":"Test",
+      "email":"test@test.com"
+    }
+  }
+]

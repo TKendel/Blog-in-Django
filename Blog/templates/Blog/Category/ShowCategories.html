@@ -1,0 +1,58 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<table class="table">
+			{% if allCategories.count > 0 %}
+				<thead>
+					<tr>
+						<th>
+							Category
+						</th>
+						<th>
+							Edit
+						</th>
+						<th>
+							Delete
+						</th>
+					</tr>
+				</thead>
+			{% else %}
+				<thead>
+					<tr>
+						<th>
+							Category
+						</th>
+					</tr>
+				</thead>
+			{% endif %}
+				<tbody>
+					{% if allCategories.count > 0 %} <!--zbog nekog razloga ne radi sa count() nego ovako-->
+						{% for Category in allCategories %}
+						<tr>
+							<td>
+								<h3>{{ Category.name }}</h3>
+							</td>
+							<td>
+								<a href="{% url 'Posts:UpdateCategory' Category.id %}"><button class="btn btn-primary" style="margin-left: 5px;">Edit</button></a>
+							</td>
+							<td>
+								<a href="{% url 'Posts:DeleteCategory' Category.id %}"><button class="btn btn-danger" style="margin-left: 5px;">Delete</button></a>
+							</td>
+						</tr>
+						{% endfor %}
+					{% else %}
+						<tr>
+							<td>
+								No categories as off now!
+							</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>	
+		</div>
+	</div>
+</div>
+{% endblock %}

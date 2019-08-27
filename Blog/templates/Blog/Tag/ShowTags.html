@@ -1,0 +1,58 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<table class="table">
+			{% if allTags.count > 0 %}
+				<thead>
+					<tr>
+						<th>
+							Tags
+						</th>
+						<th>
+							Edit
+						</th>
+						<th>
+							Delete
+						</th>
+					</tr>
+				</thead>
+			{% else %}
+				<thead>
+					<tr>
+						<th>
+							Tags
+						</th>
+					</tr>
+				</thead>
+			{% endif %}
+			<tbody>
+				{% if allTags.count > 0 %}
+					{% for Tag in allTags %}
+					<tr>
+						<td>
+							<h3>{{ Tag.name }}</h3>
+						</td>
+						<td>
+							<a href="{% url 'Posts:UpdateTag' Tag.id %}"><button class="btn btn-primary" style="margin-left: 5px;">Edit</button></a>
+						</td>
+						<td>
+							<a href="{% url 'Posts:DeleteTag' Tag.id %}"><button class="btn btn-danger" style="margin-left: 5px;">Delete</button></a>
+						</td>
+					</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td>
+							No tags yet!
+						</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

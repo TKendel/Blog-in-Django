@@ -1,0 +1,70 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>All registered users</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							Avatar
+						</th>
+						<th>
+							Username
+						</th>
+						<th>
+							Permissions
+						</th>
+						<th>
+							Delete
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for User in allUsers %}
+						{% if User.id is not current_user.id %}
+							<tr>
+								<td>
+									{% if not User.profile.avatar %}
+									{% else %}
+									<div>
+										<img src="{{ User.profile.avatar.url }}" height="50" width="50" style="border-radius: 50%;">
+									</div>
+									{% endif %}
+								</td>
+								<td>
+									<h3>{{ User.username }}</h3>
+								</td>
+								<td>
+									{% if User.is_staff == 1 %}
+										<a href="{% url 'Posts:MakeAdmin' User.id %}"><button class="btn btn-danger" style="margin-left: 5px;">Remove admin</button></a>
+									{% else %}
+										<a href="{% url 'Posts:MakeAdmin' User.id %}"><button class="btn btn-success" style="margin-left: 5px;">Make admin</button></a>
+									{% endif %}
+								</td>
+								{% if User.is_active == True %}
+								<td>
+									<a href="{% url 'Posts:DeactivateUser' User.id %}"><button class="btn btn-danger" style="margin-left: 5px;">Deactivate</button></a>
+								</td>
+								{% else %}
+								<td>
+									<a href="{% url 'Posts:DeactivateUser' User.id %}"><button class="btn btn-success" style="margin-left: 5px;">Activate</button></a>
+								</td>
+								{% endif %}
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

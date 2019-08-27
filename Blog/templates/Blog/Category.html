@@ -1,0 +1,29 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+	<div class="container">
+		<h1>{{ Category.name }}</h1>
+		<hr>
+	</div>
+	<div class="container">
+		<div class="row">
+			{% for Post in Category.post_set.all %}
+			<div class="col-lg-8 col-md-8 col-sm-8 Border">
+				<div class = "Capitalize">
+					<a class="Link" href="{% url 'Posts:Single' Post.id %}"><h4 class="Capitalize Title">{{ Post.title }}</h4></a>
+				</div>
+				<div class="PostInfo">
+					<p style="margin: 0px;">Poste by: <strong class="Capitalize">{{ Post.user.username }}</strong></p>
+					{% load humanize %}
+					<p style="margin: 0px;">{{ Post.created_at|naturaltime }}</p>
+				</div>
+			</div>
+			{% empty %}
+			<div class="col">
+				<p>There are curently no posts related to this category!</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+

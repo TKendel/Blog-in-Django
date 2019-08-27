@@ -1,0 +1,32 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+	<div class="container">
+		<h1>Search results for "{{ SearchQuerry }}"</h1>
+		<hr>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8">
+				{% for Result in Search %}
+					<div class="row Border">
+						<div class="col">
+							<div class="Capitalize">
+								<a class="Link" href="{% url 'Posts:Single' Result.id %}"><h4 class="Title">{{ Result.title }}</h4></a>
+							</div>
+							<div class="PostInfo">
+								<p style="margin: 0px;">Posted by <strong class="Capitalize">{{ Result.user.username }}</strong></p>
+								{% load humanize %}
+								<p style="margin: 0px;">{{ Result.created_at|naturaltime }}</p>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<div class="col">
+						<p>Try a different search term!</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

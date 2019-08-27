@@ -1,0 +1,27 @@
+{% extends "Blog/Header.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1>Update your post</h1>
+			<hr>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div>
+				<form method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group">
+						{{form.as_p}}
+					</div>
+					<input class="btn btn-primary" type="submit" value="Update">
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
